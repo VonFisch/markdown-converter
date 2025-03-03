@@ -1,0 +1,75 @@
+name: Build Documentation
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**.md'
+      - 'templates/**'
+      - 'src/**'
+      - 'config/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '**.md'
+      - 'templates/**'
+      - 'src/**'
+      - 'config/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: Setup dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-xetex texlive-latex-extra texlive-fonts-recommended texlive-lang-french
+          
+          # Installation de Pandoc
+          wget https://github.com/jgm/pandoc/releases/download/3.1.12/pandoc-3.1.12-1-amd64.deb
+          sudo dpkg -i pandoc-3.1.12-1-amd64.deb
+          
+          # Installation de PlantUML
+          sudo apt-get install -y default-jre
+          wget https://github.com/plantuml/plantuml/releases/download/v1.2024.0/plantuml-1.2024.0.jar -O /tmp/plantuml.jar
+          sudo mkdir -p /opt/plantuml
+          sudo mv /tmp/plantuml.jar /opt/plantuml/plantuml.jar
+          echo '#!/bin/bash' | sudo tee /usr/local/bin/plantuml > /dev/null
+          echo 'java -jar /opt/plantuml/plantuml.jar "$@"' | sudo tee -a /usr/local/bin/plantuml > /dev/null
+          sudo chmod +x /usr/local/bin/plantuml
+      
+      - name: Build documentation
+        run: |
+          chmod +x build.sh src/convert.sh src/functions.sh
+          ./build.sh
+      
+      - name: Upload PDF artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf-documents
+          path: output/pdf/*.pdf
+          retention-days: 7
+      
+      - name: Upload HTML artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-documents
+          path: output/html/*.html
+          retention-days: 7
+      
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: output
+          branch: gh-pages
+          clean: true

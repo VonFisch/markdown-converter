@@ -1,5 +1,4 @@
 output/
 *.log
 *.aux
-node_modules/
-*.temp
+temp/

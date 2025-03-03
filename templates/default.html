@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>$if(title)$$title$$else$Document$endif$</title>
+  <style>
+    :root {
+      --text-color: #333;
+      --bg-color: #fff;
+      --link-color: #2962ff;
+      --code-bg: #f5f5f5;
+      --code-border: #ddd;
+      --table-border: #ddd;
+      --table-header-bg: #f2f2f2;
+      --blockquote-border: #e0e0e0;
+      --header-border: #eaeaea;
+      --toc-border: #f0f0f0;
+    }
+    
+    /* Mise en page générale */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    /* En-têtes */
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: #000;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      border-bottom: 1px solid var(--header-border);
+      padding-bottom: 0.5rem;
+    }
+    
+    h2 {
+      font-size: 2rem;
+      border-bottom: 1px solid var(--header-border);
+      padding-bottom: 0.3rem;
+    }
+    
+    h3 { font-size: 1.5rem; }
+    h4 { font-size: 1.3rem; }
+    h5 { font-size: 1.1rem; }
+    h6 { font-size: 1rem; }
+    
+    /* Liens */
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Blocs de code */
+    pre {
+      background-color: var(--code-bg);
+      border: 1px solid var(--code-border);
+      border-radius: 4px;
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      font-size: 0.9rem;
+    }
+    
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      font-size: 0.9em;
+      background-color: var(--code-bg);
+      padding: 0.2em 0.4em;
+      border-radius: 3px;
+    }
+    
+    pre code {
+      background-color: transparent;
+      padding: 0;
+    }
+    
+    /* Tableaux */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 2rem 0;
+    }
+    
+    th, td {
+      border: 1px solid var(--table-border);
+      padding: 8px 12px;
+    }
+    
+    th {
+      background-color: var(--table-header-bg);
+      font-weight: 600;
+      text-align: left;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    
+    /* Citations */
+    blockquote {
+      margin: 1.5rem 0;
+      padding: 0.5rem 1rem;
+      border-left: 4px solid var(--blockquote-border);
+      color: #666;
+      font-style: italic;
+    }
+    
+    /* Images */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.5rem auto;
+    }
+    
+    /* Table des matières */
+    #toc {
+      background-color: #f9f9f9;
+      border: 1px solid var(--toc-border);
+      border-radius: 4px;
+      padding: 1rem 2rem;
+      margin: 2rem 0;
+    }
+    
+    #toc h2 {
+      font-size: 1.2rem;
+      margin-top: 0;
+      border-bottom: none;
+    }
+    
+    #toc ul {
+      padding-left: 1.5rem;
+    }
+    
+    /* Éléments de liste */
+    ul, ol {
+      padding-left: 2rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+    
+    /* Spécifique aux diagrammes */
+    .mermaid, .plantuml {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    
+    /* Pied de page */
+    .footer {
+      margin-top: 4rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--header-border);
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
+    }
+    
+    /* Media queries pour la responsivité */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+    
+    /* CSS personnalisé supplémentaire */
+    $if(css)$$css$$endif$
+  </style>
+  
+  $if(header-includes)$
+  $header-includes$
+  $endif$
+</head>
+<body>
+
+$if(title)$
+<header>
+  <h1>$title$</h1>
+  $if(author)$
+  <p class="author">$author$</p>
+  $endif$
+  $if(date)$
+  <p class="date">$date$</p>
+  $endif$
+</header>
+$endif$
+
+$if(toc)$
+<div id="toc">
+  <h2>Table des matières</h2>
+  $toc$
+</div>
+$endif$
+
+<main>
+$body$
+</main>
+
+<footer class="footer">
+  <p>Document généré le $date$ avec Markdown-to-PDF Converter</p>
+</footer>
+
+<!-- Support pour Mermaid -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      securityLevel: 'loose'
+    });
+  });
+</script>
+
+</body>
+</html>

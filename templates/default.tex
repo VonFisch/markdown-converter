@@ -1,0 +1,100 @@
+\documentclass[a4paper,11pt]{article}
+
+% Packages nécessaires
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{minted}
+\usepackage{longtable}
+\usepackage[french]{babel}
+
+% Support pour les diagrammes
+\usepackage{svg}
+
+% Configuration de la page
+\geometry{
+  a4paper,
+  margin=2.5cm,
+  includehead,
+  includefoot
+}
+
+% Configuration des liens
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  filecolor=magenta,      
+  urlcolor=cyan,
+  pdftitle={$title$},
+  pdfauthor={$author$},
+  pdfsubject={$subject$},
+  pdfcreator={Markdown to PDF},
+  pdfproducer={Pandoc}
+}
+
+% Configuration des en-têtes et pieds de page
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{$title$}
+\fancyhead[R]{$date$}
+\fancyfoot[C]{Page \thepage\ sur \pageref{LastPage}}
+
+% Configuration des styles de titres
+\titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% Configuration de la table des matières
+\renewcommand{\cftsecfont}{\normalfont}
+\renewcommand{\cftsecpagefont}{\normalfont}
+
+% Configuration des styles de code
+\usemintedstyle{tango}
+\setminted{
+  frame=lines,
+  framesep=2mm,
+  baselinestretch=1.2,
+  fontsize=\footnotesize,
+  breaklines=true
+}
+
+% Métadonnées
+$if(title)$
+\title{$title$}
+$endif$
+$if(author)$
+\author{$author$}
+$endif$
+$if(date)$
+\date{$date$}
+$endif$
+
+% Corps du document
+\begin{document}
+
+% Page de titre
+$if(title)$
+\maketitle
+$endif$
+
+% Table des matières
+$if(toc)$
+\tableofcontents
+\newpage
+$endif$
+
+% Contenu
+$body$
+
+\end{document}

@@ -24,12 +24,14 @@ Un outil en ligne de commande pour convertir des fichiers Markdown en PDF et HTM
 ## Installation
 
 1. Clonez ce dépôt :
+
 ```bash
-git clone https://github.com/votre-utilisateur/markdown-converter.git
+git clone https://github.com/VonFisch/markdown-converter.git
 cd markdown-converter
 ```
 
 2. Installez les dépendances :
+
 ```bash
 make install
 ```
@@ -45,6 +47,7 @@ Cette commande installera automatiquement Pandoc, LaTeX et PlantUML si nécessai
 ```
 
 Options disponibles :
+
 - `-o`, `--output` : Dossier de sortie (défaut: ./output)
 - `-t`, `--template` : Template à utiliser (défaut: default)
 - `-f`, `--format` : Format de sortie: pdf, html, both (défaut: both)
@@ -56,12 +59,14 @@ Options disponibles :
 ```
 
 Les fichiers convertis seront placés dans le dossier `output/` :
+
 - Les PDF dans `output/pdf/`
 - Les HTML dans `output/html/`
 
 ### Personnalisation des templates
 
 Vous pouvez personnaliser l'apparence des documents générés en modifiant les templates dans le dossier `templates/` :
+
 - `default.tex` : Template LaTeX pour la génération de PDF
 - `default.html` : Template HTML
 - `styles.css` : Styles CSS pour le HTML
@@ -69,11 +74,13 @@ Vous pouvez personnaliser l'apparence des documents générés en modifiant les 
 ## CI/CD avec GitHub Actions
 
 Ce projet inclut une configuration GitHub Actions qui :
+
 1. Compile automatiquement tous les documents Markdown lors d'un push
 2. Publie les résultats sur GitHub Pages
 3. Stocke les PDF et HTML générés comme artifacts
 
 Pour activer la CI/CD :
+
 1. Assurez-vous que votre dépôt a GitHub Actions activé
 2. Poussez votre code vers GitHub
 3. Activez GitHub Pages dans les paramètres de votre dépôt (branch: gh-pages)

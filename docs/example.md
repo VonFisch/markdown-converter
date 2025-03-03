@@ -33,7 +33,6 @@ Voici un exemple de **texte en gras**, *texte en italique*, et `code inline`. Vo
 ## Citation
 
 > Ceci est une citation.
-> 
 > Elle peut s'étendre sur plusieurs paragraphes.
 
 ## Tableau

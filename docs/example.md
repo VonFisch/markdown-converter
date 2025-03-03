@@ -107,7 +107,6 @@ done
 
 ## Diagramme PlantUML
 
-```plantuml
 @startuml
 actor Client
 participant "Service Web" as Web
@@ -122,7 +121,6 @@ deactivate DB
 Web --> Client: Réponse
 deactivate Web
 @enduml
-```
 
 ## Diagramme Mermaid
 
